@@ -1,11 +1,28 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './Navbar.css'
+import Netflix from './Netflix_Logo.png'
 
 function Navbar() {
+    const [show, handleShow] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            if(window.scrollY > 100) {
+                handleShow(true)
+            } else {
+                handleShow(false)
+            }
+        })
+        return () => {
+            window.removeEventListener("scroll")
+        }
+    }, [])
+
+
     return (
-        <div className="nav">
-            <img className="nav__logo"/>
-            <img className="nav__avatar" src="https://pbs.twig.com/profile_images/124011999041155"/>
+        <div className={`nav ${show && "nav__black" }`}>
+            <img className="nav__logo" src={Netflix} alt="Netflix Logo"/>
+            <img className="nav__avatar" src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="Avatar logo"/>
         </div>
     )
 }
